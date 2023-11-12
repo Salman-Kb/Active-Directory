@@ -4,6 +4,7 @@
 $DaysInactive = 180
 #Determine the OU
 $TargetOU = "OU=Win10,OU=Computers,DC=qwerty,DC=com"
+#Get the inactive computers and some details about it based on the time we determined
 $time = (Get-Date).Adddays(-($DaysInactive))
 Get-ADComputer -Filter {LastLogonTimeStamp -lt $time} -SearchBase $TargetOU -ResultPageSize 2000 -resultSetSize `
 $null -Properties Name, OperatingSystem, SamAccountName, DistinguishedName, LastLogonDate | Export-CSV "D:\Inactive_computer\Win.csv" –NoTypeInformation
